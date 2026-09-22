@@ -83,36 +83,41 @@ than the equivalent opacity utilities.
 
 Declared as `--animate-*` tokens in `@theme`, used as `animate-*` utilities:
 
-| Utility                 | What it does                                          |
-| ----------------------- | ----------------------------------------------------- |
-| `animate-slide-down`    | Mega-menu panel entrance                              |
-| `animate-overlay-show`  | Mobile menu overlay fade                              |
-| `animate-content-show`  | Fade + subtle scale, the Radix-style dialog pattern   |
-| `animate-marquee`       | 42s infinite scroll — customer logos                  |
-| `animate-marquee-slow`  | 70s infinite scroll — template gallery                |
-| `animate-float`         | 6s vertical drift for decorative blobs                |
-| `animate-playhead`      | 5.2s left-to-right sweep of the timeline playhead     |
-| `animate-pop-in`        | 5.2s in/hold/out loop for canvas elements             |
-| `animate-fade-up`       | One-shot entrance, available for non-scroll use       |
+| Utility                | What it does                                       |
+| ---------------------- | -------------------------------------------------- |
+| `animate-slide-down`   | Mega-menu panel entrance                           |
+| `animate-overlay-show` | Mobile menu overlay fade                           |
+| `animate-content-show` | Fade + subtle scale, the Radix-style dialog pattern |
+| `animate-marquee`      | 42s infinite scroll — the client logo strip        |
+| `animate-float`        | 6s vertical drift for decorative blobs             |
+| `animate-playhead`     | 5.2s left-to-right sweep of the timeline playhead  |
+| `animate-pop-in`       | 5.2s in/hold/out loop for monitor elements         |
 
 `overlayShow` / `contentShow` / `slideDown` mirror the Radix UI dialog
 primitives the source design used. Treat overlay animations as fade + subtle
 scale or slide pairs rather than instant toggles.
 
-## Marquees
+`animate-content-show` currently has no consumer. It is kept because the source
+capture in `DESIGN.md` records `contentShow` as part of the system's dialog set,
+so it belongs to the design language rather than to any one component. Tokens
+that were speculative additions with no consumer — a second marquee speed, a
+one-shot fade-up, a bar-grow, a slow spin — were removed rather than left to
+rot; if you need one back, add it when something actually uses it.
 
-Both marquees use the same structure: a `w-max` flex row containing the item
-list **twice**, translated from `0` to `-50%`. Because the second pass is an
-exact copy, the midpoint of the animation is visually identical to the start,
-so the loop is seamless.
+## The marquee
+
+There is one marquee: the client logo strip in `ClientMarquee`. It is a `w-max`
+flex row containing the list **twice**, translated from `0` to `-50%`. Because
+the second pass is an exact copy, the midpoint of the animation is visually
+identical to the start, so the loop is seamless.
 
 Two things that are easy to get wrong:
 
 - The duplicate pass is `aria-hidden` — otherwise screen readers read the whole
   list twice.
-- The track must sit inside an `overflow-hidden` parent. Both do, which is why
-  a 1400px-wide track causes no horizontal page scroll at 375px. A
-  `[mask-image:linear-gradient(...)]` fades both edges so items don't pop in
+- The track must sit inside an `overflow-hidden` parent. It does, which is why
+  a track far wider than the viewport causes no horizontal page scroll at 375px.
+  A `[mask-image:linear-gradient(...)]` fades both edges so items don't pop in
   at the viewport boundary.
 
 ## The showreel player
@@ -125,6 +130,12 @@ animations above rather than a video:
   staggered `animationDelay`s, so elements arrive in sequence.
 - The playhead runs `animate-playhead` across the full timeline width.
 - A `setInterval` cycles the highlighted track in the rail every 1300ms.
+- The aspect-ratio chips re-shape the monitor through the `frameAspect` map. The
+  frame is **height-anchored** (`h-40 sm:h-56`) so the width changes and the
+  page below stays put; a vertical frame is only ~126px wide, so its contents
+  step down a size rather than overrun it. Keep `frameAspect` in sync with
+  `showreel.ratios` in the content file — an unmapped ratio falls back to a
+  full-width box rather than throwing.
 
 The play/pause button toggles a `[animation-play-state:paused]` class onto
 every animated element rather than unmounting anything, so pausing freezes the

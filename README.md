@@ -49,7 +49,6 @@ src/
     layout.tsx            Fonts, metadata, skip link, chrome
     error.tsx             Error boundary
     not-found.tsx         404
-    icon.svg              Favicon — the navbar logomark
     robots.ts             Generated robots.txt
     sitemap.ts            Generated sitemap.xml
   components/
@@ -59,6 +58,9 @@ src/
   lib/
     content/              Site copy — one file per page
     site-url.ts           Absolute base URL resolution
+public/brand/             Logo lockups + the mark, which doubles as the favicon
+.github/workflows/        CI — scheduled dependency audit
+audit/                    Dated security audit reports
 docs/                     Full documentation
 ```
 

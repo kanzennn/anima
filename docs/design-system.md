@@ -109,9 +109,8 @@ at call sites. The upper bound of each clamp is the size recorded in
 | `text-headline-lg` | `clamp(34px, 4vw, 48px)` | 700    | −0.36px  | Section `<h2>`          |
 | `text-headline-md` | `clamp(28px, 3vw, 36px)` | 600    | −0.32px  | Mock canvas headline    |
 | `text-headline-sm` | `24px`                   | 600    | −0.32px  | Card `<h3>`             |
-| `text-quote`     | `22px`                     | 500    | −0.32px  | Pull-quotes, plan names |
-| `text-title`     | `19px`                     | 700    | −0.36px  | Wordmark                |
-| `text-stat`      | `clamp(32px, 3.4vw, 44px)` | 700    | −1.5px   | Figures, prices, step numbers |
+| `text-quote`     | `22px`                     | 500    | −0.32px  | Pull-quotes, portrait monitor headline |
+| `text-stat`      | `clamp(32px, 3.4vw, 44px)` | 700    | −1.5px   | Figures, step numbers   |
 | `text-body-lg`   | `18px / 27px`              | 400    | —        | Section intros          |
 | `text-body-md`   | `16px / 24px`              | 400    | —        | Body copy               |
 | `text-body-sm`   | `14px / 20px`              | 400    | —        | Dense body, nav links   |

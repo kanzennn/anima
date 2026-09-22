@@ -7,6 +7,16 @@ import { showreel } from "@/lib/content/home";
 const { chapterLabel, formatLabel, frame, ratios, timecode, title, tracks } =
   showreel;
 
+/* The monitor is height-anchored, so switching ratio changes the frame's width
+   while the surrounding layout stays put. Keys must cover `showreel.ratios` —
+   `frameAspect[r] ?? ""` below degrades to a full-width box if one is missed. */
+const frameAspect: Record<string, string> = {
+  "16:9": "aspect-video",
+  "2.39:1": "aspect-[2.39/1]",
+  "9:16": "aspect-[9/16]",
+  "1:1": "aspect-square",
+};
+
 /**
  * A representative view of a cutting-room timeline standing in for the reel.
  * Everything is CSS-driven so the hero stays cheap to render — a looping video
@@ -30,6 +40,9 @@ export function ShowreelPlayer() {
   }, [playing]);
 
   const motion = playing ? "" : "[animation-play-state:paused]";
+  // A vertical frame is a fraction of the width, so its contents have to come
+  // down with it or the headline overruns the monitor.
+  const portrait = activeRatio === "9:16";
 
   return (
     <div className="overflow-hidden rounded-md bg-surface-bright shadow-lifted ring-1 ring-outline">
@@ -95,14 +108,18 @@ export function ShowreelPlayer() {
             </div>
 
             <div
-              className={`gradient-brand relative aspect-video w-full max-w-140 overflow-hidden rounded-sm ${motion}`}
+              className={`gradient-brand relative h-40 w-auto max-w-full overflow-hidden rounded-sm sm:h-56 ${frameAspect[activeRatio] ?? ""} ${motion}`}
             >
               <span
                 aria-hidden
                 className={`animate-float absolute -right-8 -top-8 h-28 w-28 rounded-full bg-accent-lavender/40 ${motion}`}
               />
 
-              <div className="relative flex h-full flex-col justify-between p-lg">
+              <div
+                className={`relative flex h-full flex-col justify-between ${
+                  portrait ? "p-md" : "p-lg"
+                }`}
+              >
                 <span
                   className={`animate-pop-in inline-flex w-fit items-center gap-xs rounded-full bg-secondary px-md py-1.5 text-label-sm text-on-secondary ${motion}`}
                   style={{ animationDelay: "0.1s" }}
@@ -113,7 +130,9 @@ export function ShowreelPlayer() {
 
                 <div className="flex flex-col gap-sm">
                   <span
-                    className={`animate-pop-in block font-display text-headline-md text-inverse-on-surface ${motion}`}
+                    className={`animate-pop-in block font-display text-inverse-on-surface ${
+                      portrait ? "text-quote" : "text-headline-md"
+                    } ${motion}`}
                     style={{ animationDelay: "0.35s" }}
                   >
                     {frame.headline[0]}

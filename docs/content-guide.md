@@ -12,10 +12,23 @@ Editing copy should never mean opening a component.
 | ---------------------------------------------- | ----------------------------- |
 | Anything on the landing page                   | `src/lib/content/home.ts`     |
 | Header nav, mega-menu, footer columns, legal links | `src/lib/content/navigation.ts` |
-| The site name / wordmark                       | `src/lib/content/navigation.ts` (`siteName`) |
+| The site name in metadata, alt text, copyright | `src/lib/content/navigation.ts` (`siteName`) |
+| The visible wordmark in the navbar / footer    | `public/brand/*.svg` — it is artwork, not text (see below) |
 | Page title, description, Open Graph, Twitter card | `src/app/layout.tsx`       |
 | 404 or error-page wording                      | `src/app/not-found.tsx`, `src/app/error.tsx` |
 | The production domain                          | `src/lib/site-url.ts`         |
+
+### The wordmark is artwork, not text
+
+Changing `siteName` renames the site everywhere *except* the logo you can see.
+The navbar and footer render `public/brand/anima-logo.svg` and
+`anima-logo-on-dark.svg`, whose lettering is converted to vector outlines — so
+renaming the studio means redrawing those files, not editing a string.
+`siteName` still drives the metadata title, the navbar link's accessible name,
+the footer image's `alt`, and the copyright line, so it must be kept in step
+with whatever the artwork says.
+
+The same applies to the favicon, which is `public/brand/anima-logomark.svg`.
 
 ## Inside `home.ts`
 
@@ -53,7 +66,7 @@ varies per item:
 `work.items[].tint` currently paints a flat gradient or colour where a poster
 frame belongs. When real stills are cleared for use, replace the tinted `div`
 in `Work.tsx` with `next/image` — and note that remote image hosts need adding
-to `img-src` in the CSP, which is `'self' data: blob:` today.
+to `img-src` in the CSP, which is `'self'` today.
 
 ### Contact details
 

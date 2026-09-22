@@ -72,12 +72,6 @@
   --text-quote--letter-spacing: -0.32px;
   --text-quote--font-weight: 500;
 
-  /* Wordmark and other small display lockups. */
-  --text-title: 19px;
-  --text-title--line-height: 1.2;
-  --text-title--letter-spacing: -0.36px;
-  --text-title--font-weight: 700;
-
   /* Big numerals: stat figures, plan prices, step numbers. */
   --text-stat: clamp(32px, 3.4vw, 44px);
   --text-stat--line-height: 1;
@@ -142,28 +136,14 @@
   );
 
   /* --- Named animations --- */
-  --animate-fade-up: fadeUp 0.7s var(--ease-glide) both;
   --animate-overlay-show: overlayShow 0.24s var(--ease-glide) both;
   --animate-content-show: contentShow 0.32s var(--ease-spring) both;
   --animate-slide-down: slideDown 0.3s var(--ease-spring) both;
   --animate-marquee: marquee 42s linear infinite;
-  --animate-marquee-slow: marquee 70s linear infinite;
   --animate-float: float 6s var(--ease-glide) infinite;
   --animate-playhead: playhead 5.2s var(--ease-glide) infinite;
   --animate-pop-in: popIn 5.2s var(--ease-spring) infinite;
-  --animate-bar-grow: barGrow 5.2s var(--ease-spring) infinite;
-  --animate-spin-slow: spin 18s linear infinite;
 
-  @keyframes fadeUp {
-    from {
-      opacity: 0;
-      transform: translateY(18px);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
   @keyframes overlayShow {
     from {
       opacity: 0;
@@ -235,20 +215,6 @@
     100% {
       opacity: 0;
       transform: translateY(-8px) scale(0.94);
-    }
-  }
-  @keyframes barGrow {
-    0%,
-    10% {
-      transform: scaleY(0.2);
-    }
-    45%,
-    72% {
-      transform: scaleY(1);
-    }
-    90%,
-    100% {
-      transform: scaleY(0.2);
     }
   }
 }

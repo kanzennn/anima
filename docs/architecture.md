@@ -50,9 +50,11 @@ src/
     layout.tsx              Fonts, metadata, skip link, header/footer
     error.tsx               Route error boundary
     not-found.tsx           404
-    icon.svg                Favicon — the navbar logomark
     robots.ts               Generated robots.txt
     sitemap.ts              Generated sitemap.xml
+public/brand/               Logo lockups + the mark, which doubles as the favicon
+.github/workflows/          CI — scheduled dependency audit
+audit/<timestamp>/          Dated security audit reports
 docs/                       This folder
 ```
 

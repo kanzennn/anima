@@ -31,6 +31,19 @@ export function SiteHeader() {
     };
   }, [mobileOpen]);
 
+  /* Escape closes whichever menu is open. The mega-menu opens on hover or
+     focus, but only the mouse had a way out of it — a keyboard user who opened
+     it by tabbing had no equivalent of moving the pointer away. */
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setMenuOpen(null);
+      setMobileOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+
   return (
     <header className="sticky top-0 z-50">
       <div
@@ -63,7 +76,18 @@ export function SiteHeader() {
             onMouseLeave={() => setMenuOpen(null)}
           >
             {navLinks.map((item) => (
-              <div key={item.label} className="relative">
+              <div
+                key={item.label}
+                className="relative"
+                /* Tabbing past the group is the keyboard counterpart of the
+                   nav's onMouseLeave; without it the panel stays open behind
+                   whatever the user focuses next. */
+                onBlur={(event) => {
+                  if (!event.currentTarget.contains(event.relatedTarget)) {
+                    setMenuOpen(null);
+                  }
+                }}
+              >
                 <Link
                   href={item.href}
                   onMouseEnter={() =>
