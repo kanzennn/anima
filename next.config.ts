@@ -20,7 +20,11 @@ const contentSecurityPolicy = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  // Narrowed to what the site actually loads: three same-origin SVGs. `data:`
+  // and `blob:` were scaffolding defaults that nothing exercises, and `data:`
+  // in img-src is a known exfiltration vector once any injection exists.
+  // Re-widen deliberately if next/image or inline data URIs are introduced.
+  "img-src 'self'",
   "media-src 'self'",
   "font-src 'self'",
   `connect-src 'self'${isDev ? " ws: wss:" : ""}`,

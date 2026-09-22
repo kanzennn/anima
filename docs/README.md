@@ -17,7 +17,12 @@ Anything structural that isn't described here is described there.
 | [Animations](./animations.md)       | Touching the reveal system, marquees, or the editor mock      |
 | [Content guide](./content-guide.md) | Changing copy, pricing, templates, or navigation              |
 | [Deployment](./deployment.md)       | Shipping, configuring the domain, or debugging a bad deploy   |
-| [Security](./security.md)           | Reviewing headers or the CSP rationale                        |
+| [Security](./security.md)           | Reviewing headers, the CSP rationale, or the audit result     |
+
+The latest security review is
+[`audit/2026-09-22_17-27-34/report.md`](../audit/2026-09-22_17-27-34/report.md) —
+OWASP Top 10 (2025), no exploitable vulnerabilities, six Low/Info findings of
+which three were fixed and three accepted with reasons recorded.
 
 ## The short version
 

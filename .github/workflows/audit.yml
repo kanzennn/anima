@@ -1,0 +1,41 @@
+name: Dependency audit
+
+# Remediates F-005 from audit/2026-09-22_17-27-34/report.md: the dependency tree
+# was clean, but nothing checked it automatically, so a new advisory against
+# Next.js or React would have gone unnoticed until someone ran `npm audit` by
+# hand. The weekly run is the point — advisories land between commits.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # Mondays, 02:00 UTC.
+    - cron: "0 2 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Fails the job on high or critical advisories. Moderate and low are
+      # reported without blocking — raise the bar here if that proves too noisy
+      # in the other direction.
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Report all advisories (non-blocking)
+        if: always()
+        run: npm audit || true

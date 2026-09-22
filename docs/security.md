@@ -36,7 +36,7 @@ Production value:
 default-src 'self'
 script-src 'self' 'unsafe-inline'
 style-src 'self' 'unsafe-inline'
-img-src 'self' data: blob:
+img-src 'self'
 media-src 'self'
 font-src 'self'
 connect-src 'self'
@@ -68,6 +68,18 @@ which is what closes the clickjacking gap, and that remains `'none'`.
 
 Revisit this the moment the project gains a form, user-generated content, or a
 third-party script.
+
+### Why `img-src` is just `'self'`
+
+The site loads three images, all same-origin SVGs from `/brand/`. It uses no
+`next/image`, no canvas export, and no runtime-generated image sources, so
+neither `data:` nor `blob:` is exercised — both were scaffolding defaults and
+were removed. `data:` in `img-src` is worth resisting specifically: it lets
+anyone who achieves HTML injection render arbitrary inline payloads, and it is a
+recognised exfiltration channel.
+
+Re-widen deliberately if `next/image` or inline data URIs arrive. Remote image
+hosts need naming explicitly — never `*`.
 
 ### Why `font-src 'self'` is enough
 
@@ -118,7 +130,31 @@ dependency is code shipped to visitors.
 
 ## Audit status
 
-**No formal security audit has been run against this project.** The workspace
-standard reserves `audit/` for dated audit reports; that folder does not exist
-here yet. The contents of this document are design rationale, not audit
-findings.
+A source review against the **OWASP Top 10 (2025)** was run on 2026-09-22 at
+revision `a551f7e`. The report is at
+[`audit/2026-09-22_17-27-34/report.md`](../audit/2026-09-22_17-27-34/report.md).
+
+**Result: no exploitable vulnerabilities.** Six findings, all Low or Info —
+hardening and hygiene rather than defects. The controlling observation is that
+this application has no untrusted input: no route handlers, no forms, no
+query-string reads, no runtime data source. Every rendered value originates as a
+constant in `src/lib/content/`.
+
+Fixed in response:
+
+- Deleted five unused `create-next-app` placeholder assets from `public/`.
+- Narrowed `img-src` from `'self' data: blob:` to `'self'` — nothing used either
+  scheme, and `data:` in `img-src` is a known exfiltration vector once any
+  injection exists.
+- Added `.github/workflows/audit.yml` to run `npm audit` on push, on pull
+  requests, and weekly, so the currently-clean dependency tree does not decay
+  unnoticed.
+
+Accepted without change, with reasons recorded in the report: the
+`script-src 'unsafe-inline'` trade-off (above), the static-deploy header risk
+(see [Deployment](./deployment.md#hosting-requirements)), and the absence of
+application logging (nothing security-relevant happens server-side to log).
+
+Re-run the audit when the site gains a form, a route handler, authentication, a
+third-party script, or a CMS — each reopens categories this review could close
+by inspection.
