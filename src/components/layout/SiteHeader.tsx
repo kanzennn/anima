@@ -3,14 +3,10 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ButtonLink } from "@/components/ui/Button";
-import {
-  ChevronDownIcon,
-  CloseIcon,
-  Logomark,
-  MenuIcon,
-} from "@/components/ui/Marks";
+import { ChevronDownIcon, CloseIcon, MenuIcon } from "@/components/ui/Marks";
 import {
   headerActions,
+  logo,
   navLinks,
   productMenu,
   siteName,
@@ -45,13 +41,20 @@ export function SiteHeader() {
         }`}
       >
         <div className="container-page flex h-18 items-center justify-between gap-lg">
-          <Link
-            href="/"
-            className="flex items-center gap-sm text-on-surface"
-            aria-label={`${siteName} home`}
-          >
-            <Logomark className="h-7 w-7 text-primary" />
-            <span className="font-display text-title">{siteName}</span>
+          <Link href="/" aria-label={`${siteName} home`} className="flex items-center">
+            {/* Plain <img>, not next/image: the file is a static same-origin
+                SVG. next/image would need `dangerouslyAllowSVG`, which opens
+                the optimizer to SVG for no gain — a vector has nothing to
+                resize or re-encode. `alt` is empty because the link above
+                already carries the accessible name. */}
+            {/* eslint-disable-next-line @next/next/no-img-element -- see above */}
+            <img
+              src={logo.onLight.src}
+              width={logo.onLight.width}
+              height={logo.onLight.height}
+              alt=""
+              className="h-7 w-auto"
+            />
           </Link>
 
           <nav

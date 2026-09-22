@@ -7,6 +7,17 @@
 
 export const siteName = "Anima";
 
+/**
+ * Brand lockups in `public/brand/`. The wordmark in these files is outlined,
+ * so they render without depending on Inter Tight — but they also can't be
+ * recoloured, which is why the dark sections get their own file rather than
+ * inheriting `currentColor` the way the bare `Logomark` component does.
+ */
+export const logo = {
+  onLight: { src: "/brand/anima-logo.svg", width: 93, height: 28 },
+  onDark: { src: "/brand/anima-logo-on-dark.svg", width: 93, height: 28 },
+};
+
 export const navLinks = [
   { label: "Work", href: "#work", hasMenu: false },
   { label: "Services", href: "#services", hasMenu: true },

@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { Logomark } from "@/components/ui/Marks";
 import {
   footerDisclaimer,
   footerLegal,
   footerNav,
   footerTagline,
+  logo,
   siteName,
 } from "@/lib/content/navigation";
 
@@ -17,9 +17,19 @@ export function SiteFooter() {
       <div className="container-page">
         <div className="grid gap-14 lg:grid-cols-[1.2fr_2fr]">
           <div className="max-w-80">
-            <Link href="/" className="flex items-center gap-sm">
-              <Logomark className="h-7 w-7 text-secondary" />
-              <span className="font-display text-title">{siteName}</span>
+            <Link href="/" className="flex items-center">
+              {/* The dark-section lockup: lime mark, white wordmark. A separate
+                  file rather than a recolour — the outlined wordmark can't
+                  inherit `currentColor`. Plain <img> for the same reason as in
+                  SiteHeader: next/image would need `dangerouslyAllowSVG`. */}
+              {/* eslint-disable-next-line @next/next/no-img-element -- see above */}
+              <img
+                src={logo.onDark.src}
+                width={logo.onDark.width}
+                height={logo.onDark.height}
+                alt={siteName}
+                className="h-7 w-auto"
+              />
             </Link>
             <p className="mt-lg text-body-sm text-inverse-on-surface-variant">
               {footerTagline}
