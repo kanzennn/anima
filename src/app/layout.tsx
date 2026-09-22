@@ -42,6 +42,9 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image", title: shareTitle, description },
   robots: { index: true, follow: true },
+  /* Points at the brand asset rather than an app/icon file, so the mark has a
+     single source. The file carries its own dark-mode rule for tab strips. */
+  icons: { icon: { url: "/brand/anima-logomark.svg", type: "image/svg+xml" } },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
