@@ -4,8 +4,9 @@ import { testimonials } from "@/lib/content/home";
 export function Testimonials() {
   return (
     <section
+      id="clients"
       aria-labelledby="testimonials-title"
-      className="bg-surface-bright py-20 sm:py-28"
+      className="scroll-mt-24 bg-surface-bright py-20 sm:py-28"
     >
       <div className="container-page">
         <div className="max-w-160">

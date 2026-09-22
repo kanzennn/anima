@@ -8,93 +8,90 @@
 export const siteName = "Anima";
 
 export const navLinks = [
-  { label: "Product", href: "#product", hasMenu: true },
-  { label: "Templates", href: "#templates", hasMenu: false },
-  { label: "Teams", href: "#teams", hasMenu: false },
-  { label: "Pricing", href: "#pricing", hasMenu: false },
-  { label: "Resources", href: "#resources", hasMenu: true },
+  { label: "Work", href: "#work", hasMenu: false },
+  { label: "Services", href: "#services", hasMenu: true },
+  { label: "Process", href: "#process", hasMenu: false },
+  { label: "Clients", href: "#clients", hasMenu: false },
 ];
 
 /** Panel shown under the nav entries flagged `hasMenu`. */
 export const productMenu = [
   {
-    title: "Editor",
-    body: "Keyframes, curves, and layers in the browser.",
-    href: "#product",
+    title: "Editorial",
+    body: "Story, structure, and the cut itself.",
+    href: "#services",
   },
   {
-    title: "Brand kits",
-    body: "Fonts, colors, and logos locked to your system.",
-    href: "#teams",
+    title: "Colour",
+    body: "Grading, matching, and finishing passes.",
+    href: "#services",
   },
   {
-    title: "Auto-resize",
-    body: "One master, every channel ratio, in one pass.",
-    href: "#resize",
+    title: "Sound",
+    body: "Mix, cleanup, and music supervision.",
+    href: "#services",
   },
   {
-    title: "Export",
-    body: "MP4, GIF, WebM, Lottie, and transparent renders.",
-    href: "#resize",
+    title: "Delivery",
+    body: "Versioning and spec-correct masters.",
+    href: "#services",
   },
 ];
 
 export const headerActions = {
-  login: { label: "Log in", href: "#start" },
-  signup: { label: "Start for free", href: "#start" },
+  reel: { label: "Showreel", href: "#reel" },
+  contact: { label: "Start a project", href: "#contact" },
 };
 
 export const footerTagline =
-  "Collaborative motion design for teams that ship on a calendar, not a render queue.";
+  "A post-production studio for brands and agencies. Editorial, colour, sound, and delivery under one roof.";
 
 export const footerNav = [
   {
-    title: "Product",
+    title: "Services",
     links: [
-      { label: "Editor", href: "#product" },
-      { label: "Auto-resize", href: "#resize" },
-      { label: "Brand kits", href: "#teams" },
-      { label: "Exports", href: "#resize" },
-      { label: "Changelog", href: "#resources" },
+      { label: "Editorial", href: "#services" },
+      { label: "Colour", href: "#services" },
+      { label: "Sound", href: "#services" },
+      { label: "Delivery", href: "#services" },
     ],
   },
   {
-    title: "Templates",
+    title: "Work",
     links: [
-      { label: "Social ads", href: "#templates" },
-      { label: "Explainers", href: "#templates" },
-      { label: "Product drops", href: "#templates" },
-      { label: "Logo stings", href: "#templates" },
-      { label: "All templates", href: "#templates" },
+      { label: "Brand films", href: "#work" },
+      { label: "Commercials", href: "#work" },
+      { label: "Documentary", href: "#work" },
+      { label: "Social", href: "#work" },
+      { label: "Showreel", href: "#reel" },
     ],
   },
   {
-    title: "Company",
+    title: "Studio",
     links: [
-      { label: "About", href: "#resources" },
-      { label: "Careers", href: "#resources" },
-      { label: "Press kit", href: "#resources" },
-      { label: "Contact", href: "#resources" },
+      { label: "About", href: "#process" },
+      { label: "Process", href: "#process" },
+      { label: "Clients", href: "#clients" },
+      { label: "Careers", href: "#contact" },
     ],
   },
   {
-    title: "Resources",
+    title: "Contact",
     links: [
-      { label: "Help center", href: "#resources" },
-      { label: "Motion guide", href: "#resources" },
-      { label: "API docs", href: "#resources" },
-      { label: "Status", href: "#resources" },
-      { label: "Community", href: "#resources" },
+      { label: "Start a project", href: "#contact" },
+      { label: "Book a call", href: "#contact" },
+      { label: "Instagram", href: "#contact" },
+      { label: "Vimeo", href: "#contact" },
     ],
   },
 ];
 
 export const footerLegal = [
-  { label: "Privacy", href: "#resources" },
-  { label: "Terms", href: "#resources" },
-  { label: "Cookies", href: "#resources" },
+  { label: "Privacy", href: "#contact" },
+  { label: "Terms", href: "#contact" },
 ];
 
-/** Shown beside the copyright line. */
+/** Shown beside the copyright line. Remove once real client work replaces the
+ *  placeholder projects — see docs/content-guide.md. */
 export const footerDisclaimer =
-  "A demo build — not affiliated with any existing product.";
+  "Portfolio pieces shown are placeholders pending client approval.";

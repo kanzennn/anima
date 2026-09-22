@@ -1,13 +1,13 @@
 # Anima
 
-Marketing site for Anima, a collaborative motion design tool for marketing
-teams. A fully static Next.js app — every route prerenders to HTML at build
-time.
+Portfolio site for Anima, a post-production studio — editorial, colour, sound,
+and delivery. A fully static Next.js app; every route prerenders to HTML at
+build time.
 
-> **Demo build.** The product, customer names, testimonials, and figures on
-> this site are fictional. See
-> [docs/content-guide.md](./docs/content-guide.md#placeholders-that-must-be-replaced)
-> for everything that must be replaced before launch.
+> **Placeholder content.** The client names, projects, testimonials, and
+> figures on this site are invented, and the showreel is a CSS mock rather than
+> a real cut. Replace them before launch — see
+> [docs/content-guide.md](./docs/content-guide.md#placeholders-that-must-be-replaced).
 
 ## Stack
 
@@ -43,12 +43,13 @@ The dev server runs on [http://localhost:3001](http://localhost:3001) — port
 ```
 src/
   app/
-    (home)/_components/   The nine landing-page sections
+    (home)/_components/   The seven portfolio sections
     (home)/page.tsx       /
     globals.css           Design tokens, keyframes, base styles
     layout.tsx            Fonts, metadata, skip link, chrome
     error.tsx             Error boundary
     not-found.tsx         404
+    icon.svg              Favicon — the navbar logomark
     robots.ts             Generated robots.txt
     sitemap.ts            Generated sitemap.xml
   components/

@@ -20,12 +20,12 @@ const display = Inter_Tight({
 });
 
 const siteName = "Anima";
-/* The tab shows the brand alone — the page itself already says what the product
+/* The tab shows the brand alone — the page itself already says what the studio
    does. The tagline is kept for shared links, where the preview card arrives
    with no page around it to supply that context. */
-const shareTitle = "Anima — Animated content, at brand speed";
+const shareTitle = "Anima — Post-production studio";
 const description =
-  "Anima is a collaborative motion design tool for marketing teams. Start from a template, animate in the browser, and export every size your channels need.";
+  "Anima is a post-production studio for brands and agencies. Editorial, colour, sound, and delivery under one roof.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

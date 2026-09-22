@@ -21,59 +21,72 @@ Editing copy should never mean opening a component.
 
 One export per section, named after it:
 
-| Export            | Renders in          |
-| ----------------- | ------------------- |
-| `hero`            | `Hero`              |
-| `editorMock`      | `EditorMock`        |
-| `customerMarquee` | `LogoMarquee`       |
-| `features`        | `Features`          |
-| `templates`       | `TemplateGallery`   |
-| `resize`          | `ResizeShowcase`    |
-| `teams`           | `TeamsSection`      |
-| `testimonials`    | `Testimonials`      |
-| `pricing`         | `Pricing`           |
-| `cta`             | `CtaBand`           |
+| Export          | Renders in       |
+| --------------- | ---------------- |
+| `hero`          | `Hero`           |
+| `showreel`      | `ShowreelPlayer` |
+| `clientMarquee` | `ClientMarquee`  |
+| `work`          | `Work`           |
+| `services`      | `Services`       |
+| `process`       | `Process`        |
+| `testimonials`  | `Testimonials`   |
+| `contact`       | `ContactCta`     |
 
 ### Fields that are not plain copy
 
 A few fields hold Tailwind class names rather than text, because the design
 varies per item:
 
-- `tint` / `ink` on templates, testimonials, and mock layers — use existing
-  token utilities (`gradient-brand`, `bg-accent-cyan`, `text-inverse-on-surface`).
-  Don't put a raw hex value here; it bypasses the token system.
-- `box` on `resize.panel.formats` — an aspect-ratio and width utility pair
-  that gives each format thumbnail its shape.
-- `glyph` on features — a `GlyphId`, which must match a key in
+- `tint` / `ink` on `work.items`, `testimonials.items`, and `showreel.tracks` —
+  use existing token utilities (`gradient-brand`, `bg-accent-cyan`,
+  `text-inverse-on-surface`). Don't put a raw hex value here; it bypasses the
+  token system.
+- `start` / `width` on `showreel.tracks` are percentages of the timeline width,
+  positioning each clip bar on its track.
+- `glyph` on services — a `GlyphId`, which must match a key in
   `src/components/ui/Marks.tsx`. Adding an icon means adding it to both the
   `GlyphId` union in `src/lib/content/types.ts` and the `paths` record in
   `Marks.tsx`; TypeScript will fail the build if they drift.
 
-### Prices
+### Project stills
 
-`pricing.plans[].monthly` and `.yearly` are numbers, or `null` for the
-"Custom / Talk to sales" plan. The `null` case also switches that plan's button
-to the `ghost` variant — if you give Enterprise a real price, revisit that
-branch in `Pricing.tsx`.
+`work.items[].tint` currently paints a flat gradient or colour where a poster
+frame belongs. When real stills are cleared for use, replace the tinted `div`
+in `Work.tsx` with `next/image` — and note that remote image hosts need adding
+to `img-src` in the CSP, which is `'self' data: blob:` today.
+
+### Contact details
+
+`contact.email` drives every call-to-action in `ContactCta` — both buttons and
+the address line are `mailto:` links built from that one value. There is no
+form, which is what keeps the site free of route handlers.
 
 ## Placeholders that must be replaced
 
 Everything below is fictional and exists only so the page has something to
 render. None of it should survive to production:
 
-| What                             | Where                                    |
-| -------------------------------- | ---------------------------------------- |
-| Customer names in the logo marquee | `home.ts` → `customerMarquee.customers` |
-| Testimonial quotes, names, roles  | `home.ts` → `testimonials.items`         |
-| Adoption figures (4.2×, 61%, 900+) | `home.ts` → `teams.stats`              |
-| Export figures (38s, 14 formats)   | `home.ts` → `features.callout.stats`   |
-| Template counts in prose           | `home.ts` → `templates.body`             |
-| Pricing tiers and amounts          | `home.ts` → `pricing.plans`              |
-| The production domain              | `src/lib/site-url.ts`                    |
+Everything below is invented and exists only so the page has something to
+render. **This is the blocking pre-launch item** — a studio portfolio that
+presents invented client work as real is a misrepresentation, not a cosmetic
+placeholder.
+
+| What                                   | Where                                 |
+| -------------------------------------- | ------------------------------------- |
+| Client names in the marquee             | `home.ts` → `clientMarquee.clients`   |
+| Every project, client, runtime and year | `home.ts` → `work.items`              |
+| Testimonial quotes, names, roles        | `home.ts` → `testimonials.items`      |
+| Studio figures (140+, 12 years, 1 yr)   | `home.ts` → `process.stats`           |
+| Turnaround figures (5 days, 140+)       | `home.ts` → `services.callout.stats`  |
+| Turnaround claim in the hero footnote   | `home.ts` → `hero.footnote`           |
+| Booking availability in the hero eyebrow| `home.ts` → `hero.eyebrow`            |
+| Contact email and location              | `home.ts` → `contact`                 |
+| Showreel title and runtime              | `home.ts` → `showreel`                |
 
 The footer carries a standing disclaimer
-(`navigation.ts` → `footerDisclaimer`) stating this is a demo build. Remove it
-only once the placeholders above are gone.
+(`navigation.ts` → `footerDisclaimer`) stating the portfolio pieces are
+placeholders. Remove it only once the table above is fully resolved — and
+remove it *because* the work is real, not to make the page look finished.
 
 ## Adding a page
 
@@ -82,7 +95,7 @@ only once the placeholders above are gone.
 2. Create `src/lib/content/<route>.ts` and write the copy there **first**, then
    build the components against it. Retrofitting this later is much more work.
 3. Add the route to the nav in `src/lib/content/navigation.ts`. Entries are
-   currently in-page anchors (`#product`); a real route uses a path (`/pricing`).
+   currently in-page anchors (`#work`); a real route uses a path (`/work`).
 4. Add the route to `src/app/sitemap.ts`.
 5. Once a link points at a real path rather than an anchor, set
    `aria-current="page"` on the active link in `SiteHeader` — the site has no

@@ -1,14 +1,14 @@
 import { Logomark } from "@/components/ui/Marks";
-import { customerMarquee } from "@/lib/content/home";
+import { clientMarquee } from "@/lib/content/home";
 
-export function LogoMarquee() {
+export function ClientMarquee() {
   return (
-    <section aria-labelledby="customers-label" className="border-y border-outline py-10">
+    <section aria-labelledby="clients-label" className="border-y border-outline py-10">
       <p
-        id="customers-label"
+        id="clients-label"
         className="container-page text-center text-label-sm font-normal text-on-surface-subtle"
       >
-        {customerMarquee.label}
+        {clientMarquee.label}
       </p>
 
       <div className="relative mt-lg overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_12%,black_88%,transparent)]">
@@ -19,7 +19,7 @@ export function LogoMarquee() {
               className="flex items-center gap-xl pr-xl"
               aria-hidden={pass === 1}
             >
-              {customerMarquee.customers.map((name) => (
+              {clientMarquee.clients.map((name) => (
                 <span
                   key={name}
                   className="flex items-center gap-sm whitespace-nowrap font-display text-quote text-on-surface-variant"

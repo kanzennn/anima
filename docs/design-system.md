@@ -52,7 +52,8 @@ dark theme. There is no dark mode; `color-scheme: light` is set explicitly.
 **Do** reserve `secondary` for a small number of high-intent actions per
 screen. It appeared six times in the entire source capture; it is a "pop"
 accent, not a base colour. In this build it is used for the primary CTA
-button, the check bullets, the export chip, and the footer logomark.
+button, the showreel format chip, the "Now playing" badge, one project tint,
+and the footer logomark.
 
 **Do** pair `on-secondary` (dark ink) with it, never white — white-on-lime
 fails contrast.

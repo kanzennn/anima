@@ -2,25 +2,28 @@
 
 import { useEffect, useState } from "react";
 import { Glyph, PlayIcon } from "@/components/ui/Marks";
-import { editorMock } from "@/lib/content/home";
+import { showreel } from "@/lib/content/home";
 
-const { canvas, easingLabel, exportLabel, layers, projectName, ratios, timecode } =
-  editorMock;
+const { chapterLabel, formatLabel, frame, ratios, timecode, title, tracks } =
+  showreel;
 
 /**
- * A representative view of the editor. Everything here is CSS-driven so the
- * hero stays cheap to render — the loop is the pitch, so it runs on its own.
+ * A representative view of a cutting-room timeline standing in for the reel.
+ * Everything is CSS-driven so the hero stays cheap to render — a looping video
+ * would outweigh the rest of the page, and this stays sharp at any size.
+ *
+ * Swap this for a real `<video>` poster + player once the reel is cut.
  */
-export function EditorMock() {
+export function ShowreelPlayer() {
   const [activeRatio, setActiveRatio] = useState(ratios[0]);
   const [playing, setPlaying] = useState(true);
 
-  // Keep the layer rail feeling live without wiring up real state.
-  const [activeLayer, setActiveLayer] = useState(0);
+  // Keep the track list feeling live without wiring up real playback.
+  const [activeTrack, setActiveTrack] = useState(0);
   useEffect(() => {
     if (!playing) return;
     const id = window.setInterval(
-      () => setActiveLayer((i) => (i + 1) % layers.length),
+      () => setActiveTrack((i) => (i + 1) % tracks.length),
       1300,
     );
     return () => window.clearInterval(id);
@@ -39,49 +42,39 @@ export function EditorMock() {
             <span className="h-2.5 w-2.5 rounded-full bg-icon-muted" />
           </div>
           <span className="hidden text-label-sm text-on-surface-variant sm:block">
-            {projectName}
+            {title}
           </span>
         </div>
 
-        <div className="flex items-center gap-sm">
-          <div className="hidden -space-x-2 sm:flex" aria-hidden>
-            {["gradient-brand", "gradient-lavender", "bg-secondary"].map((tint) => (
-              <span
-                key={tint}
-                className={`h-7 w-7 rounded-full ring-2 ring-surface-bright ${tint}`}
-              />
-            ))}
-          </div>
-          <span className="rounded-full bg-secondary px-md py-1.5 text-label-sm text-on-secondary">
-            {exportLabel}
-          </span>
-        </div>
+        <span className="rounded-full bg-secondary px-md py-1.5 text-label-sm text-on-secondary">
+          {formatLabel}
+        </span>
       </div>
 
-      <div className="grid lg:grid-cols-[168px_1fr]">
-        {/* Layer rail */}
+      <div className="grid lg:grid-cols-[180px_1fr]">
+        {/* Track list */}
         <aside className="hidden flex-col gap-xs border-r border-outline p-md lg:flex">
           <span className="flex items-center gap-xs px-xs pb-1 text-label-sm text-on-surface-subtle">
-            <Glyph id="layers" className="h-3.5 w-3.5" />
-            Layers
+            <Glyph id="cut" className="h-3.5 w-3.5" />
+            Timeline
           </span>
-          {layers.map((layer, i) => (
+          {tracks.map((track, i) => (
             <span
-              key={layer.name}
+              key={track.name}
               className={`flex items-center gap-sm rounded-full px-sm py-2 text-label-sm transition-colors duration-300 ease-glide ${
-                i === activeLayer
+                i === activeTrack
                   ? "bg-surface-container text-on-surface"
                   : "text-on-surface-variant"
               }`}
             >
-              <span className={`h-2 w-2 shrink-0 rounded-full ${layer.tint}`} />
-              <span className="truncate">{layer.name}</span>
+              <span className={`h-2 w-2 shrink-0 rounded-full ${track.tint}`} />
+              <span className="truncate">{track.name}</span>
             </span>
           ))}
         </aside>
 
         <div>
-          {/* Canvas */}
+          {/* Program monitor */}
           <div className="relative flex items-center justify-center bg-surface p-lg sm:p-xl">
             <div className="absolute left-lg top-lg hidden gap-xs sm:flex">
               {ratios.map((ratio) => (
@@ -102,7 +95,7 @@ export function EditorMock() {
             </div>
 
             <div
-              className={`gradient-brand relative aspect-square w-full max-w-80 overflow-hidden rounded-sm ${motion}`}
+              className={`gradient-brand relative aspect-video w-full max-w-140 overflow-hidden rounded-sm ${motion}`}
             >
               <span
                 aria-hidden
@@ -115,7 +108,7 @@ export function EditorMock() {
                   style={{ animationDelay: "0.1s" }}
                 >
                   <Glyph id="spark" className="h-3.5 w-3.5" />
-                  {canvas.badge}
+                  {frame.badge}
                 </span>
 
                 <div className="flex flex-col gap-sm">
@@ -123,9 +116,9 @@ export function EditorMock() {
                     className={`animate-pop-in block font-display text-headline-md text-inverse-on-surface ${motion}`}
                     style={{ animationDelay: "0.35s" }}
                   >
-                    {canvas.headline[0]}
+                    {frame.headline[0]}
                     <br />
-                    {canvas.headline[1]}
+                    {frame.headline[1]}
                   </span>
                   <span
                     aria-hidden
@@ -137,7 +130,7 @@ export function EditorMock() {
             </div>
           </div>
 
-          {/* Timeline */}
+          {/* Transport + timeline */}
           <div className="relative border-t border-outline bg-surface-bright px-lg py-md">
             <div className="flex items-center gap-md pb-md">
               <button
@@ -154,25 +147,25 @@ export function EditorMock() {
                   <PlayIcon className="h-4 w-4 translate-x-px" />
                 )}
                 <span className="sr-only">
-                  {playing ? "Pause preview" : "Play preview"}
+                  {playing ? "Pause showreel preview" : "Play showreel preview"}
                 </span>
               </button>
               <span className="text-label-sm text-on-surface-variant">
                 {timecode}
               </span>
               <span className="ml-auto hidden text-label-sm text-on-surface-subtle sm:block">
-                {easingLabel}
+                {chapterLabel}
               </span>
             </div>
 
             <div className="relative flex flex-col gap-xs" aria-hidden>
-              {layers.map((layer) => (
-                <div key={layer.name} className="h-3 w-full rounded-full bg-surface">
+              {tracks.map((track) => (
+                <div key={track.name} className="h-3 w-full rounded-full bg-surface">
                   <span
-                    className={`block h-3 rounded-full ${layer.tint}`}
+                    className={`block h-3 rounded-full ${track.tint}`}
                     style={{
-                      marginLeft: `${layer.start}%`,
-                      width: `${layer.width}%`,
+                      marginLeft: `${track.start}%`,
+                      width: `${track.width}%`,
                     }}
                   />
                 </div>

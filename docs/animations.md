@@ -1,9 +1,10 @@
 # Animations
 
-The product this site describes is a motion design tool, so motion is the
-pitch, not decoration. That justifies more animation than a typical marketing
-site — but it also means the motion has to look deliberate rather than
-generic, which is mostly a question of easing.
+This site belongs to a post-production studio, so motion is the portfolio, not
+decoration — a studio that cuts film for a living cannot ship a stiff website.
+That justifies more animation than a typical marketing site, but it also raises
+the bar: the motion has to look deliberate rather than generic, which is mostly
+a question of easing.
 
 Everything here is CSS. There is no animation library, no JS-driven tween, and
 no scroll-linked layout work. The only JavaScript involved is a single
@@ -114,22 +115,31 @@ Two things that are easy to get wrong:
   `[mask-image:linear-gradient(...)]` fades both edges so items don't pop in
   at the viewport boundary.
 
-## The editor mock
+## The showreel player
 
-`(home)/_components/EditorMock.tsx` is the animated product mock in the hero.
-It's a composition of the named animations above rather than a video:
+`(home)/_components/ShowreelPlayer.tsx` is the animated cutting-room timeline
+standing in for the reel in the hero. It's a composition of the named
+animations above rather than a video:
 
-- The canvas badge, headline, and underline run `animate-pop-in` at staggered
-  `animationDelay`s, so elements arrive in sequence.
-- The timeline playhead runs `animate-playhead` across the full track width.
-- A `setInterval` cycles the highlighted layer in the rail every 1300ms.
+- The program-monitor badge, headline, and underline run `animate-pop-in` at
+  staggered `animationDelay`s, so elements arrive in sequence.
+- The playhead runs `animate-playhead` across the full timeline width.
+- A `setInterval` cycles the highlighted track in the rail every 1300ms.
 
 The play/pause button toggles a `[animation-play-state:paused]` class onto
 every animated element rather than unmounting anything, so pausing freezes the
 composition mid-motion instead of resetting it.
 
-**Why no video:** a looping MP4 would be heavier than the entire rest of the
+**Why no video:** a looping master would be heavier than the entire rest of the
 page, and CSS keeps it sharp at any viewport size.
+
+**When the real reel exists**, replace the program monitor with a `<video>`
+carrying a poster frame and `preload="none"`, and keep the timeline chrome
+around it — the chrome is what makes the hero read as a cutting room rather
+than a generic player. Note that a self-hosted file is covered by
+`media-src 'self'`; an embedded Vimeo or YouTube player is not, and would need
+both a `frame-src` directive and a review of the `frame-ancestors 'none'`
+assumption in [Security](./security.md).
 
 ## Reduced motion
 

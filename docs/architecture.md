@@ -23,12 +23,11 @@ before reaching for it.
 
 Only two components are client components, and both for a concrete reason:
 
-| Component     | Why it's `"use client"`                                       |
-| ------------- | ------------------------------------------------------------- |
-| `SiteHeader`  | Scroll state, hover mega-menu, mobile menu toggle, body lock  |
-| `Reveal`      | `IntersectionObserver` for scroll-triggered entrances         |
-| `EditorMock`  | Play/pause and ratio state in the hero mock                   |
-| `Pricing`     | Monthly/yearly billing toggle                                 |
+| Component        | Why it's `"use client"`                                     |
+| ---------------- | ----------------------------------------------------------- |
+| `SiteHeader`     | Scroll state, hover mega-menu, mobile menu toggle, body lock |
+| `Reveal`         | `IntersectionObserver` for scroll-triggered entrances       |
+| `ShowreelPlayer` | Play/pause and aspect-ratio state in the hero reel          |
 
 Everything else renders on the server.
 
@@ -45,12 +44,13 @@ src/
     site-url.ts             Absolute base URL resolution
   app/
     (home)/
-      _components/          The nine landing-page sections
+      _components/          The seven portfolio sections
       page.tsx
     globals.css             Design tokens, keyframes, base styles
     layout.tsx              Fonts, metadata, skip link, header/footer
     error.tsx               Route error boundary
     not-found.tsx           404
+    icon.svg                Favicon — the navbar logomark
     robots.ts               Generated robots.txt
     sitemap.ts              Generated sitemap.xml
 docs/                       This folder
@@ -84,23 +84,24 @@ line tell you at a glance whether it reaches outside the route.
 
 ## Component map
 
-The landing page composes nine sections in order:
+The portfolio page composes seven sections in order:
 
-| Section           | Anchor       | Notes                                        |
-| ----------------- | ------------ | -------------------------------------------- |
-| `Hero`            | —            | Owns the page's single `<h1>`; renders `EditorMock` |
-| `LogoMarquee`     | —            | Infinite customer marquee                    |
-| `Features`        | `#product`   | 2×2 grid plus a wide stats callout           |
-| `TemplateGallery` | `#templates` | Second, slower marquee                       |
-| `ResizeShowcase`  | `#resize`    | Format-set panel with a render progress bar  |
-| `TeamsSection`    | `#teams`     | Dark band — the ink/paper swap               |
-| `Testimonials`    | —            | Three quote cards                            |
-| `Pricing`         | `#pricing`   | Four plans, billing toggle                   |
-| `CtaBand`         | `#start`     | Gradient closing band                        |
+| Section          | Anchor      | Notes                                              |
+| ---------------- | ----------- | -------------------------------------------------- |
+| `Hero`           | `#reel`     | Owns the page's single `<h1>`; renders `ShowreelPlayer` |
+| `ClientMarquee`  | —           | Infinite client-logo marquee                       |
+| `Work`           | `#work`     | Project grid — 3 columns at `lg`                   |
+| `Services`       | `#services` | 2×2 practice areas plus a wide stats callout       |
+| `Process`        | `#process`  | Dark band — the ink/paper swap; ordered `<ol>`     |
+| `Testimonials`   | `#clients`  | Three quote cards                                  |
+| `ContactCta`     | `#contact`  | Gradient closing band with `mailto:` actions       |
 
-`SiteFooter` carries `#resources`. Every nav target is an in-page anchor today;
-when a target becomes a real route, only `src/lib/content/navigation.ts`
-changes.
+`#reel` sits on the showreel wrapper inside `Hero` rather than on the section
+itself, so the "Showreel" link lands on the player rather than the top of the
+page.
+
+Every nav target is an in-page anchor today; when a target becomes a real
+route, only `src/lib/content/navigation.ts` changes.
 
 ## Data flow
 
@@ -108,8 +109,13 @@ There is no runtime data flow. Every value on the page is a module-scope
 constant in `src/lib/content/`, imported directly by the component that renders
 it. Nothing fetches, nothing revalidates, nothing is passed through context.
 
-`EditorMock` and `Pricing` hold small pieces of local UI state (play/pause,
-selected ratio, billing period). That state never leaves the component.
+`ShowreelPlayer` holds small pieces of local UI state (play/pause, selected
+aspect ratio). That state never leaves the component.
+
+Contact actions are `mailto:` links, not a form. That is what keeps the site
+free of route handlers and keeps `form-action 'self'` and `connect-src 'self'`
+honest in the CSP. Adding a real contact form means revisiting both — see
+[Security](./security.md).
 
 ## Accessibility
 
@@ -120,8 +126,9 @@ Verified on every route:
   (`Main`, `Mobile`, `Footer`).
 - Skip-to-content link is the first focusable element, targeting `#main`.
 - Sections are labelled with `aria-labelledby` pointing at their own heading.
-- Decorative SVG, gradient blobs, avatar swatches, and the timeline bars are
-  `aria-hidden`; icon-only buttons carry an `sr-only` label.
+- Decorative SVG, gradient blobs, avatar swatches, project tints, and the
+  timeline tracks are `aria-hidden`; icon-only buttons carry an `sr-only` label.
+- The process steps are an ordered `<ol>`, since the sequence carries meaning.
 - The duplicated marquee pass is `aria-hidden` so screen readers hear the list once.
 - Toggle buttons expose `aria-pressed`; the mobile menu button uses
   `aria-expanded` + `aria-controls`.

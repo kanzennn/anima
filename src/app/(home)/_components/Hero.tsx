@@ -2,7 +2,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { Glyph, PlayIcon } from "@/components/ui/Marks";
 import { Reveal } from "@/components/ui/Reveal";
 import { hero } from "@/lib/content/home";
-import { EditorMock } from "./EditorMock";
+import { ShowreelPlayer } from "./ShowreelPlayer";
 
 export function Hero() {
   return (
@@ -54,7 +54,9 @@ export function Hero() {
         </div>
 
         <Reveal delay={320} className="mt-14 sm:mt-16">
-          <EditorMock />
+          <div id="reel" className="scroll-mt-24">
+            <ShowreelPlayer />
+          </div>
         </Reveal>
       </div>
     </section>

@@ -52,23 +52,22 @@ Anything prefixed `NEXT_PUBLIC_` is inlined into the client bundle and is
 public by definition. Never put a real secret behind that prefix.
 `.env.example` documents the variable and holds no real values.
 
-## The domain is not real yet
+## The domain
 
-`src/lib/site-url.ts` currently hardcodes:
+`src/lib/site-url.ts` hardcodes the production origin:
 
 ```ts
-const PRODUCTION_URL = "https://anima.kanzen.my.id";
+const PRODUCTION_URL = "https://anima.kervzent.kanzen.my.id";
 ```
 
-**Nothing is registered at that address.** It follows the naming pattern of the
-sibling project in this workspace and is a placeholder, not a decision. Replace
-it before the first production deploy, or the sitemap and every Open Graph tag
-will point at a domain that doesn't resolve.
+This is a subdomain of the Kervzent domain used by the sibling
+`company-profile` project. Confirm DNS actually resolves and serves TLS before
+the first production deploy — the sitemap, canonical URLs, and every Open Graph
+tag are built from this value.
 
-Note the deliberate design: production falls back to a real domain rather than
-`localhost`, so a deploy that forgets the env var still emits reachable URLs
-instead of publishing `http://localhost:3001` to crawlers. That only helps once
-the constant is actually correct.
+Note the deliberate design: production falls back to the real domain rather
+than `localhost`, so a deploy that forgets the env var still emits reachable
+URLs instead of publishing `http://localhost:3001` to crawlers.
 
 ## Post-deploy header verification
 
@@ -90,11 +89,14 @@ curl -s https://your-domain/sitemap.xml
 
 ## Pre-launch checklist
 
-- [ ] Replace `PRODUCTION_URL` in `src/lib/site-url.ts` with the real domain
-- [ ] Replace every placeholder listed in
-      [Content guide](./content-guide.md#placeholders-that-must-be-replaced)
-- [ ] Remove the demo disclaimer in the footer once placeholders are gone
-- [ ] Replace the default `favicon.ico` with a real brand mark
+- [ ] Confirm `anima.kervzent.kanzen.my.id` resolves and serves TLS
+- [ ] **Replace every placeholder listed in
+      [Content guide](./content-guide.md#placeholders-that-must-be-replaced)** —
+      the invented client work is the blocking item, not a cosmetic one
+- [ ] Remove the footer disclaimer once the real work is in
+- [ ] Swap the showreel mock for the real reel
+      ([notes](./animations.md#the-showreel-player))
+- [ ] Point `contact.email` at a real, monitored mailbox
 - [ ] Add an Open Graph image (`opengraph-image.tsx` or a static asset) — the
       Twitter card is declared `summary_large_image` but no image exists yet
 - [ ] Decide on TWK Lausanne: buy and self-host it, or accept the Inter Tight

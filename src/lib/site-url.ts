@@ -6,10 +6,8 @@
  * instead of silently publishing `http://localhost:3001` to crawlers and social
  * cards. `NEXT_PUBLIC_SITE_URL` still overrides, which preview deployments need.
  *
- * PLACEHOLDER: no domain has been registered for this project yet. Replace the
- * constant below before the first production deploy, or set the env var.
  */
-const PRODUCTION_URL = "https://anima.kanzen.my.id";
+const PRODUCTION_URL = "https://anima.kervzent.kanzen.my.id";
 
 export const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??

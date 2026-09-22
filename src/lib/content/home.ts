@@ -1,35 +1,36 @@
 import type { GlyphId } from "./types";
 
 export const hero = {
-  eyebrow: "Auto-resize now covers 14 ad formats",
-  title: { lead: "Animated content,", accent: "at brand speed" },
-  body: "Anima is the collaborative motion design tool for marketing teams. Start from a template, animate in the browser, and ship every size your channels need — without a render queue or a handoff.",
-  primaryAction: { label: "Start for free", href: "#start" },
-  secondaryAction: { label: "Watch a 90-second tour", href: "#product" },
-  footnote: "No credit card. Unlimited projects on the free plan.",
+  eyebrow: "Post-production studio · Accepting Q2 bookings",
+  title: { lead: "We cut the film", accent: "people finish watching" },
+  body: "Anima is a post-production studio for brands and agencies. Editorial, colour, sound, and delivery under one roof — so the story survives the schedule.",
+  primaryAction: { label: "Start a project", href: "#contact" },
+  secondaryAction: { label: "Watch the showreel", href: "#reel" },
+  footnote: "Typical first cut within five working days.",
 };
 
-/** Drives the editor mock in the hero: layer rail names and timeline bars. */
-export const editorMock = {
-  projectName: "Spring drop / hero cutdown",
-  timecode: "00:00 / 00:06",
-  easingLabel: "Spring · 380 stiffness",
-  exportLabel: "Export",
-  ratios: ["1:1", "9:16", "16:9", "4:5"],
-  canvas: { badge: "New season", headline: ["Move", "faster."] },
-  layers: [
-    { name: "Headline", tint: "bg-accent-violet", start: 4, width: 62 },
-    { name: "Product shot", tint: "bg-accent-cyan", start: 12, width: 70 },
-    { name: "Price badge", tint: "bg-secondary", start: 30, width: 48 },
-    { name: "Logo sting", tint: "bg-accent-lavender", start: 46, width: 38 },
-    { name: "Background", tint: "bg-icon-muted", start: 0, width: 92 },
+/** Drives the showreel player in the hero: clip strip and timeline bars. */
+export const showreel = {
+  title: "Anima — Reel 2026",
+  timecode: "00:00 / 02:14",
+  formatLabel: "4K · ProRes 422 HQ",
+  chapterLabel: "Selected work",
+  ratios: ["16:9", "2.39:1", "9:16", "1:1"],
+  frame: { badge: "Now playing", headline: ["Reel", "2026."] },
+  /** Timeline tracks. `start`/`width` are percentages of the track. */
+  tracks: [
+    { name: "V2 · Titles", tint: "bg-accent-violet", start: 4, width: 62 },
+    { name: "V1 · Picture", tint: "bg-accent-cyan", start: 0, width: 92 },
+    { name: "A1 · Dialogue", tint: "bg-secondary", start: 12, width: 70 },
+    { name: "A2 · Music", tint: "bg-accent-lavender", start: 30, width: 58 },
+    { name: "A3 · Atmos", tint: "bg-icon-muted", start: 46, width: 38 },
   ],
 };
 
-export const customerMarquee = {
-  label: "Motion systems running on Anima at",
-  /** Placeholder names — replace with real customer logos before launch. */
-  customers: [
+export const clientMarquee = {
+  label: "Trusted in the edit by",
+  /** Placeholder names — replace with real client logos before launch. */
+  clients: [
     "Northwind",
     "Cadence",
     "Tidepool",
@@ -41,215 +42,178 @@ export const customerMarquee = {
   ],
 };
 
-export const features = {
-  eyebrow: "The editor",
-  title: "Everything you need to animate.",
-  subtitle: "Nothing you need to render overnight.",
+export const services = {
+  eyebrow: "Services",
+  title: "Everything after the shoot.",
+  subtitle: "One studio, one timeline, one point of contact.",
   items: [
     {
-      glyph: "layers" as GlyphId,
-      title: "A real timeline, in the browser",
-      body: "Keyframes, easing curves, nested comps, and masks — the tools motion designers expect, with nothing to install.",
+      glyph: "cut" as GlyphId,
+      title: "Editorial",
+      body: "Story first. We build structure from the rushes, then cut for rhythm — assembly through picture lock, with versions that stay legible.",
     },
     {
-      glyph: "spark" as GlyphId,
-      title: "Presets that carry your brand",
-      body: "Save an entrance, a transition, or a whole sequence as a preset. Anyone on the team can apply it in one click.",
+      glyph: "color" as GlyphId,
+      title: "Colour",
+      body: "Grading, shot matching, and clean-up. Camera-native workflows from log to final master, graded on calibrated reference.",
     },
     {
-      glyph: "users" as GlyphId,
-      title: "Comment where it happened",
-      body: "Feedback pins to a frame and a layer, so notes stop arriving as timestamps in a spreadsheet.",
+      glyph: "sound" as GlyphId,
+      title: "Sound",
+      body: "Dialogue cleanup, sound design, and mix. Music supervision and licensing when the track has to carry the piece.",
     },
     {
-      glyph: "resize" as GlyphId,
-      title: "Resize once, ship everywhere",
-      body: "Smart layout rules re-flow a master composition into every ratio your channels need — then export the set.",
+      glyph: "delivery" as GlyphId,
+      title: "Delivery",
+      body: "Spec-correct masters for every placement — broadcast, cinema, and social — including subtitles, versioning, and archive.",
     },
   ],
-  /** The wide callout below the feature grid. */
+  /** The wide callout below the services grid. */
   callout: {
     glyph: "bolt" as GlyphId,
-    title: "Renders finish while you are still reviewing",
-    body: "Exports run on our infrastructure, in parallel, at up to 4K. A twelve-format set is typically ready in under a minute.",
+    title: "Cutting rooms that stay open between revisions",
+    body: "Review links go out the same day, notes come back timecoded, and the project stays online for a year after delivery.",
+    /** Placeholder figures — replace with real numbers before launch. */
     stats: [
-      { label: "Avg. export", value: "38s" },
-      { label: "Formats", value: "14" },
+      { label: "First cut", value: "5 days" },
+      { label: "Projects", value: "140+" },
     ],
   },
 };
 
-export const templates = {
-  eyebrow: "Templates",
-  title: "Start from a blank canvas only if you want to",
-  body: "Nine hundred animated templates, each one editable down to the keyframe. Drop in your brand kit and the whole gallery restyles itself.",
-  action: { label: "Browse the gallery", href: "#templates" },
+export const work = {
+  eyebrow: "Selected work",
+  title: "Recent cuts",
+  body: "A sample of brand films, commercials, and documentary work. Full case studies and the extended reel are available on request.",
+  action: { label: "Request the full reel", href: "#contact" },
+  /** Placeholder projects — replace with real client work before launch. */
   items: [
-    { name: "Product drop", category: "Social ad", ratio: "1:1", tint: "gradient-brand", ink: "text-inverse-on-surface" },
-    { name: "Feature tour", category: "Explainer", ratio: "16:9", tint: "bg-secondary", ink: "text-on-secondary" },
-    { name: "Quote card", category: "Organic", ratio: "4:5", tint: "gradient-lavender", ink: "text-primary" },
-    { name: "Countdown", category: "Retail", ratio: "9:16", tint: "bg-inverse-surface", ink: "text-inverse-on-surface" },
-    { name: "Logo sting", category: "Brand", ratio: "1:1", tint: "bg-accent-cyan", ink: "text-inverse-on-surface" },
-    { name: "Price reveal", category: "Performance", ratio: "1:1", tint: "bg-surface-container", ink: "text-on-surface" },
-    { name: "Testimonial", category: "Social proof", ratio: "4:5", tint: "bg-accent-violet", ink: "text-inverse-on-surface" },
-    { name: "Event teaser", category: "Announcement", ratio: "16:9", tint: "gradient-brand", ink: "text-inverse-on-surface" },
+    {
+      name: "Low Tide",
+      client: "Tidepool",
+      discipline: "Brand film",
+      runtime: "3:40",
+      year: "2026",
+      tint: "gradient-brand",
+      ink: "text-inverse-on-surface",
+    },
+    {
+      name: "The Long Way",
+      client: "Fernweh",
+      discipline: "Documentary",
+      runtime: "18:02",
+      year: "2025",
+      tint: "bg-inverse-surface",
+      ink: "text-inverse-on-surface",
+    },
+    {
+      name: "Second Shift",
+      client: "Cadence",
+      discipline: "Commercial",
+      runtime: "0:60",
+      year: "2025",
+      tint: "bg-secondary",
+      ink: "text-on-secondary",
+    },
+    {
+      name: "Nightline",
+      client: "Orbital",
+      discipline: "Title sequence",
+      runtime: "1:12",
+      year: "2025",
+      tint: "bg-accent-cyan",
+      ink: "text-inverse-on-surface",
+    },
+    {
+      name: "Field Notes",
+      client: "Beacon Labs",
+      discipline: "Social campaign",
+      runtime: "0:30",
+      year: "2024",
+      tint: "gradient-lavender",
+      ink: "text-primary",
+    },
+    {
+      name: "Carry It Home",
+      client: "Halcyon",
+      discipline: "Brand film",
+      runtime: "2:25",
+      year: "2024",
+      tint: "bg-accent-violet",
+      ink: "text-inverse-on-surface",
+    },
   ],
 };
 
-export const resize = {
-  eyebrow: "Auto-resize",
-  title: "One master. Every placement.",
-  body: "Animate the version you care about. Anima re-flows it into the rest of the media plan and keeps the motion intact, so the fourteenth format looks as deliberate as the first.",
-  points: [
-    "Layout rules keep type, logo, and safe areas intact at every ratio.",
-    "Duration and easing carry across — a six-second master stays six seconds.",
-    "Export the whole set as MP4, GIF, WebM, or transparent WebM in one job.",
-  ],
-  panel: {
-    projectName: "Spring drop / hero cutdown",
-    counter: "5 of 14",
-    progressLabel: "Rendering 10/14",
-    /** `box` values are Tailwind aspect/width utilities, not raw sizes. */
-    formats: [
-      { label: "1:1", box: "aspect-square w-20" },
-      { label: "9:16", box: "aspect-[9/16] w-12" },
-      { label: "16:9", box: "aspect-video w-28" },
-      { label: "4:5", box: "aspect-[4/5] w-16" },
-      { label: "2:3", box: "aspect-[2/3] w-14" },
-    ],
-  },
-};
-
-export const teams = {
-  eyebrow: "For teams",
-  title: "The brand system does the enforcing, so you don’t have to",
-  body: "Designers set the rules once. Marketers, partners, and regional teams work inside them. Nobody has to police a font choice in a review call again.",
+export const process = {
+  eyebrow: "Process",
+  title: "How a project runs from rushes to master",
+  body: "Four stages, each with something to watch at the end of it. No silent weeks, and no surprise at picture lock.",
   steps: [
     {
       step: "01",
-      title: "Set the brand kit",
-      body: "Fonts, colors, logo lockups, and motion presets live in one place. Everything downstream inherits them.",
+      title: "Brief and rushes",
+      body: "We read the brief, ingest the footage, and come back with a structure before anything gets cut — so the plan is agreed, not assumed.",
     },
     {
       step: "02",
-      title: "Hand over the keys",
-      body: "Lock the layers that matter and let the wider team swap copy, imagery, and offers without breaking the system.",
+      title: "Assembly",
+      body: "A first cut within five working days. Rough, honest, and long enough to see what the piece actually wants to be.",
     },
     {
       step: "03",
-      title: "Review in one thread",
-      body: "Comments pin to a frame and a layer. Versions are named, not numbered, and nothing lives in a download folder.",
+      title: "Refine",
+      body: "Timecoded notes, versioned rounds, picture lock. Colour and sound start in parallel once the structure stops moving.",
+    },
+    {
+      step: "04",
+      title: "Deliver",
+      body: "Masters to spec for every placement, plus the versions nobody remembered to ask for. Project stays online for a year.",
     },
   ],
-  /** Placeholder figures — replace with measured numbers before launch. */
+  /** Placeholder figures — replace with real numbers before launch. */
   stats: [
-    { value: "4.2×", label: "More variants shipped per campaign" },
-    { value: "61%", label: "Less time in review cycles" },
-    { value: "900+", label: "Animated templates, brand-aware" },
+    { value: "140+", label: "Projects delivered" },
+    { value: "12", label: "Years in the cutting room" },
+    { value: "1 yr", label: "Projects kept online post-delivery" },
   ],
 };
 
 export const testimonials = {
-  eyebrow: "Customers",
-  title: "Teams that stopped waiting on renders",
-  /** Placeholder quotes and names — replace with approved customer stories. */
+  eyebrow: "Clients",
+  title: "What it's like on the other side of the edit",
+  /** Placeholder quotes and names — replace with approved client stories. */
   items: [
     {
       quote:
-        "We used to budget a week for a campaign's motion set. The last one took an afternoon, and the regional cutdowns came out of the same file.",
+        "They came back with a structure before touching the timeline, and it was better than the one in our brief. That set the tone for the whole job.",
       name: "Devi Raman",
       role: "Creative Director, Northwind",
       tint: "gradient-brand",
     },
     {
       quote:
-        "Our brand kit lives in the tool now, so the guardrails travel with the work. I stopped being the person who checks kerning on ads.",
+        "Notes went back timecoded and came back done. Three rounds, no version confusion, no rebuilding anything from scratch.",
       name: "Jonas Vetter",
-      role: "Design Lead, Cadence",
+      role: "Head of Content, Cadence",
       tint: "gradient-lavender",
     },
     {
       quote:
-        "The timeline is close enough to what my team already knows that onboarding was a conversation, not a training plan.",
+        "We needed broadcast, cinema, and eleven social cutdowns off one master. All of it landed to spec, first time.",
       name: "Amara Okonkwo",
-      role: "Head of Brand, Orbital",
+      role: "Brand Lead, Orbital",
       tint: "bg-accent-cyan",
     },
   ],
 };
 
-export const pricing = {
-  eyebrow: "Pricing",
-  title: "Priced per seat, not per render",
-  body: "Every plan includes the full editor. The difference is export quality, automation, and how much of it your team shares.",
-  yearlyDiscountLabel: "−20%",
-  featuredBadge: "Most picked",
-  unit: "/editor/mo",
-  plans: [
-    {
-      name: "Free",
-      blurb: "For trying the editor on a real project.",
-      monthly: 0,
-      yearly: 0,
-      cta: { label: "Start for free", href: "#start" },
-      featured: false,
-      features: [
-        "Unlimited projects",
-        "720p exports with a watermark",
-        "3 brand-kit slots",
-        "Community templates",
-      ],
-    },
-    {
-      name: "Pro",
-      blurb: "For designers shipping campaign work every week.",
-      monthly: 24,
-      yearly: 19,
-      cta: { label: "Start 14-day trial", href: "#start" },
-      featured: true,
-      features: [
-        "4K exports, no watermark",
-        "Auto-resize across 14 formats",
-        "Full template library",
-        "Transparent WebM and Lottie",
-        "Version history",
-      ],
-    },
-    {
-      name: "Team",
-      blurb: "For brand systems with more than one owner.",
-      monthly: 42,
-      yearly: 34,
-      cta: { label: "Start 14-day trial", href: "#start" },
-      featured: false,
-      features: [
-        "Everything in Pro",
-        "Shared brand kits and locked layers",
-        "Comment threads and approvals",
-        "Roles and permissions",
-        "Priority render queue",
-      ],
-    },
-    {
-      name: "Enterprise",
-      blurb: "For org-wide rollouts with procurement in the room.",
-      monthly: null,
-      yearly: null,
-      cta: { label: "Talk to sales", href: "#start" },
-      featured: false,
-      features: [
-        "SSO and SCIM provisioning",
-        "Audit logs and retention rules",
-        "Dedicated onboarding",
-        "Custom render capacity",
-      ],
-    },
-  ],
-};
-
-export const cta = {
-  title: "Your next campaign can move",
-  body: "Open the editor, pick a template, and have an animated set exported before the kickoff call is over.",
-  primaryAction: { label: "Start for free", href: "#start" },
-  secondaryAction: { label: "Book a walkthrough", href: "#start" },
+export const contact = {
+  title: "Tell us what you're cutting",
+  body: "Send the brief, the rushes, or just the deadline. We'll come back with a plan, a schedule, and a number.",
+  primaryAction: { label: "Start a project", href: "#contact" },
+  secondaryAction: { label: "Book a call", href: "#contact" },
+  /** Placeholder details — replace with the studio's real contact routes. */
+  email: "hello@anima.studio",
+  location: "Jakarta · Working worldwide",
 };

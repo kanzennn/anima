@@ -106,13 +106,13 @@ export function SiteHeader() {
 
           <div className="hidden items-center gap-sm lg:flex">
             <Link
-              href={headerActions.login.href}
+              href={headerActions.reel.href}
               className="flex h-10 items-center rounded-full px-md text-body-sm font-medium transition-colors duration-200 hover:bg-surface-container"
             >
-              {headerActions.login.label}
+              {headerActions.reel.label}
             </Link>
-            <ButtonLink href={headerActions.signup.href} variant="dark">
-              {headerActions.signup.label}
+            <ButtonLink href={headerActions.contact.href} variant="dark">
+              {headerActions.contact.label}
             </ButtonLink>
           </div>
 
@@ -154,20 +154,20 @@ export function SiteHeader() {
           </nav>
           <div className="mt-xl flex flex-col gap-md">
             <ButtonLink
-              href={headerActions.signup.href}
+              href={headerActions.contact.href}
               variant="primary"
               size="lg"
               onClick={() => setMobileOpen(false)}
             >
-              {headerActions.signup.label}
+              {headerActions.contact.label}
             </ButtonLink>
             <ButtonLink
-              href={headerActions.login.href}
+              href={headerActions.reel.href}
               variant="outline"
               size="lg"
               onClick={() => setMobileOpen(false)}
             >
-              {headerActions.login.label}
+              {headerActions.reel.label}
             </ButtonLink>
           </div>
         </div>

@@ -21,13 +21,14 @@ Anything structural that isn't described here is described there.
 
 ## The short version
 
-A **fully static** Next.js 16 marketing site for a fictional motion design
-tool. Every route prerenders to HTML at build time — no database, no route
-handlers, no server actions, no authentication. Copy lives in
-`src/lib/content/`, styling runs entirely on Tailwind v4 theme tokens derived
-from [`DESIGN.md`](../DESIGN.md), and the distinctive part of the build is a
-CSS-driven motion system where the product's own pitch — motion — is the
-visual language.
+A **fully static** Next.js 16 portfolio site for Anima, a post-production
+studio — editorial, colour, sound, and delivery. Every route prerenders to HTML
+at build time — no database, no route handlers, no server actions, no
+authentication. Copy lives in `src/lib/content/`, styling runs entirely on
+Tailwind v4 theme tokens derived from [`DESIGN.md`](../DESIGN.md), and the
+distinctive part of the build is a CSS-driven motion system whose cutting-room
+visual language — timelines, playheads, track stacks — is also the studio's
+subject matter.
 
 The site is a single content route today. The structure is nonetheless the
 full multi-route layout from the standard, so the second page costs nothing to
@@ -59,10 +60,11 @@ These are deliberate, documented decisions rather than oversights:
   prerender. [Rationale](./security.md#why-unsafe-inline-is-in-script-src).
 - **Substitute display font** — the design's specified typeface is a
   commercial license. [Details](./design-system.md#fonts).
-- **The production domain is a placeholder** — nothing is registered yet.
-  [Details](./deployment.md#the-domain-is-not-real-yet).
-- **Customer names, quotes, and figures are placeholders** — every one of them
-  is fictional and must be replaced before launch.
+- **The showreel is a CSS mock, not video** — a looping master would outweigh
+  the rest of the page. [Details](./animations.md#the-showreel-player).
+- **Client names, projects, quotes, and figures are placeholders** — every one
+  of them is invented and must be replaced before launch. Publishing invented
+  client work as real is a misrepresentation, so this is the blocking item.
   [Details](./content-guide.md#placeholders-that-must-be-replaced).
 - **`src/components/sections/` is empty** — the site has one content route, so
   its sections stay route-local until a second route needs them.
