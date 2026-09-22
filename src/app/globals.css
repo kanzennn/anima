@@ -1,26 +1,366 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* =========================================================================
+   Design tokens — sourced from DESIGN.md (Jitter design pattern, alpha).
+   Values are kept in the exact rgb() form they were captured in.
+   ========================================================================= */
+@theme {
+  /* --- Neutral surfaces --- */
+  --color-surface: rgb(242, 241, 243);
+  --color-surface-container: rgb(229, 228, 231);
+  --color-surface-bright: rgb(255, 255, 255);
+  --color-inverse-surface: rgb(25, 23, 28);
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* --- Text ink --- */
+  --color-on-surface: rgb(25, 23, 28);
+  --color-on-surface-variant: rgb(110, 110, 115);
+  --color-on-surface-strong: rgb(0, 0, 0);
+  --color-on-surface-subtle: rgb(151, 151, 155);
+  --color-inverse-on-surface: rgb(255, 255, 255);
+  --color-inverse-on-surface-variant: rgb(215, 215, 219);
+  --color-outline: rgb(229, 228, 231);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* --- Brand --- */
+  --color-primary: rgb(23, 8, 44);
+  --color-on-primary: rgb(255, 255, 255);
+  --color-secondary: rgb(245, 255, 99);
+  --color-on-secondary: rgb(25, 23, 28);
+
+  /* --- Icon fills --- */
+  --color-icon-default: rgb(28, 27, 31);
+  --color-icon-muted: rgb(195, 195, 198);
+
+  /* --- Low-confidence accents: decorative use only, per DESIGN.md --- */
+  --color-accent-violet: rgb(122, 64, 237);
+  --color-accent-cyan: rgb(1, 178, 253);
+  --color-accent-lavender: rgb(169, 129, 255);
+
+  /* --- Type families.
+     TWK Lausanne is the licensed display face; Inter Tight stands in as the
+     nearest self-hosted neo-grotesque when it is not installed. --- */
+  --font-sans: var(--font-inter), Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-display: "TWK Lausanne", var(--font-display-alt), Inter, sans-serif;
+
+  /* --- Type scale.
+     Display sizes clamp between a mobile and a desktop bound so a single
+     semantic utility covers every breakpoint — no `text-[34px] sm:text-…`
+     pairs at call sites. The upper bound of each clamp is the size captured
+     in DESIGN.md. --- */
+  --text-hero: clamp(44px, 6.6vw, 80px);
+  --text-hero--line-height: 0.95;
+  --text-hero--letter-spacing: -1.5px;
+  --text-hero--font-weight: 700;
+
+  --text-headline-lg: clamp(34px, 4vw, 48px);
+  --text-headline-lg--line-height: 1.04;
+  --text-headline-lg--letter-spacing: -0.36px;
+  --text-headline-lg--font-weight: 700;
+
+  --text-headline-md: clamp(28px, 3vw, 36px);
+  --text-headline-md--line-height: 1.1;
+  --text-headline-md--letter-spacing: -0.32px;
+  --text-headline-md--font-weight: 600;
+
+  --text-headline-sm: 24px;
+  --text-headline-sm--line-height: 1.16;
+  --text-headline-sm--letter-spacing: -0.32px;
+  --text-headline-sm--font-weight: 600;
+
+  /* Pull-quotes and plan names — display face at body-adjacent size. */
+  --text-quote: 22px;
+  --text-quote--line-height: 1.3;
+  --text-quote--letter-spacing: -0.32px;
+  --text-quote--font-weight: 500;
+
+  /* Wordmark and other small display lockups. */
+  --text-title: 19px;
+  --text-title--line-height: 1.2;
+  --text-title--letter-spacing: -0.36px;
+  --text-title--font-weight: 700;
+
+  /* Big numerals: stat figures, plan prices, step numbers. */
+  --text-stat: clamp(32px, 3.4vw, 44px);
+  --text-stat--line-height: 1;
+  --text-stat--letter-spacing: -1.5px;
+  --text-stat--font-weight: 700;
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 27px;
+  --text-body-lg--font-weight: 400;
+
+  --text-body-md: 16px;
+  --text-body-md--line-height: 24px;
+  --text-body-md--font-weight: 400;
+
+  --text-body-sm: 14px;
+  --text-body-sm--line-height: 20px;
+  --text-body-sm--font-weight: 400;
+
+  --text-label-sm: 12px;
+  --text-label-sm--line-height: 16.8px;
+  --text-label-sm--letter-spacing: -0.2px;
+  --text-label-sm--font-weight: 600;
+
+  --text-button: 15px;
+  --text-button--line-height: 1;
+  --text-button--font-weight: 600;
+
+  /* --- Radii --- */
+  --radius-sm: 20px;
+  --radius-md: 40px;
+  --radius-lg: 50px;
+  --radius-full: 9999px;
+
+  /* --- Spacing --- */
+  --spacing-xs: 5px;
+  --spacing-sm: 10px;
+  --spacing-md: 12px;
+  --spacing-lg: 20px;
+  --spacing-xl: 50px;
+
+  /* --- Elevation: the two captured soft, wide-spread stacks --- */
+  --shadow-lifted:
+    rgba(25, 23, 28, 0) 0px 237px 66px 0px,
+    rgba(25, 23, 28, 0.01) 0px 152px 61px 0px,
+    rgba(25, 23, 28, 0.05) 0px 85px 51px 0px,
+    rgba(25, 23, 28, 0.09) 0px 38px 38px 0px,
+    rgba(25, 23, 28, 0.1) 0px 9px 21px 0px;
+  --shadow-raised:
+    rgba(0, 0, 0, 0.01) 0px 63px 25px 0px,
+    rgba(0, 0, 0, 0.05) 0px 35px 21px 0px,
+    rgba(0, 0, 0, 0.09) 0px 16px 16px 0px,
+    rgba(0, 0, 0, 0.1) 0px 4px 9px 0px;
+  --shadow-hairline: rgb(255, 255, 255) 0px 0px 0px 1px;
+
+  /* --- Motion: spring-shaped timing, not plain eases --- */
+  --ease-glide: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-spring: linear(
+    0, 0.0039 1.3%, 0.0353 4.2%, 0.1283 8.5%, 0.4165 19.5%, 0.5316 24%,
+    0.6323 28.5%, 0.7188 33%, 0.7938 37.6%, 0.8564 42%, 0.9084 46.8%,
+    0.9505 51.6%, 0.9823 58.4%, 1.0035 65.6%, 1.0151 74.8%, 1.0155 84.6%,
+    1.0038 100%
+  );
+
+  /* --- Named animations --- */
+  --animate-fade-up: fadeUp 0.7s var(--ease-glide) both;
+  --animate-overlay-show: overlayShow 0.24s var(--ease-glide) both;
+  --animate-content-show: contentShow 0.32s var(--ease-spring) both;
+  --animate-slide-down: slideDown 0.3s var(--ease-spring) both;
+  --animate-marquee: marquee 42s linear infinite;
+  --animate-marquee-slow: marquee 70s linear infinite;
+  --animate-float: float 6s var(--ease-glide) infinite;
+  --animate-playhead: playhead 5.2s var(--ease-glide) infinite;
+  --animate-pop-in: popIn 5.2s var(--ease-spring) infinite;
+  --animate-bar-grow: barGrow 5.2s var(--ease-spring) infinite;
+  --animate-spin-slow: spin 18s linear infinite;
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes overlayShow {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes contentShow {
+    from {
+      opacity: 0;
+      transform: translateY(8px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  @keyframes playhead {
+    0% {
+      left: 0%;
+    }
+    86% {
+      left: 100%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+  @keyframes popIn {
+    0%,
+    8% {
+      opacity: 0;
+      transform: translateY(12px) scale(0.88);
+    }
+    20%,
+    74% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    86%,
+    100% {
+      opacity: 0;
+      transform: translateY(-8px) scale(0.94);
+    }
+  }
+  @keyframes barGrow {
+    0%,
+    10% {
+      transform: scaleY(0.2);
+    }
+    45%,
+    72% {
+      transform: scaleY(1);
+    }
+    90%,
+    100% {
+      transform: scaleY(0.2);
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* =========================================================================
+   Base
+   ========================================================================= */
+@layer base {
+  :root {
+    view-transition-name: root;
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+    font-family: var(--font-sans);
+    font-size: var(--text-body-md);
+    line-height: var(--text-body-md--line-height);
+  }
+
+  ::selection {
+    background-color: var(--color-secondary);
+    color: var(--color-on-secondary);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* =========================================================================
+   Utilities
+   ========================================================================= */
+@utility container-page {
+  width: 100%;
+  max-width: 1320px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+/* Deep violet to vivid purple — the captured hero gradient */
+@utility gradient-brand {
+  background-image: linear-gradient(rgb(20, 7, 38) 0%, rgb(113, 29, 226) 100%);
+}
+
+/* Light purple to lavender — the captured secondary gradient */
+@utility gradient-lavender {
+  background-image: linear-gradient(
+    rgb(169, 129, 255) 0%,
+    rgb(208, 186, 254) 100%
+  );
+}
+
+/* Soft brand wash behind the fold. Radial so it fades into the page surface
+   instead of terminating on a visible circular edge. */
+@utility wash-brand {
+  background-image: radial-gradient(
+    ellipse at center,
+    rgba(169, 129, 255, 0.3) 0%,
+    rgba(208, 186, 254, 0.16) 42%,
+    rgba(242, 241, 243, 0) 70%
+  );
+}
+
+@utility text-gradient-brand {
+  background-image: linear-gradient(
+    92deg,
+    rgb(23, 8, 44) 0%,
+    rgb(113, 29, 226) 58%,
+    rgb(169, 129, 255) 100%
+  );
+  background-clip: text;
+  color: transparent;
+}
+
+/* Scroll-triggered reveal, driven by the Reveal component */
+@utility reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s var(--ease-glide),
+    transform 0.7s var(--ease-spring);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+@utility reveal-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
 }

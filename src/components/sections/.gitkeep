@@ -1,0 +1,3 @@
+# Sections shared by two or more routes live here (see docs/architecture.md).
+# Empty for now: the site has one content route, so its sections stay in
+# src/app/(home)/_components/ until a second route needs them.

@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Anima
 
-## Getting Started
+Marketing site for Anima, a collaborative motion design tool for marketing
+teams. A fully static Next.js app — every route prerenders to HTML at build
+time.
 
-First, run the development server:
+> **Demo build.** The product, customer names, testimonials, and figures on
+> this site are fictional. See
+> [docs/content-guide.md](./docs/content-guide.md#placeholders-that-must-be-replaced)
+> for everything that must be replaced before launch.
+
+## Stack
+
+- Next.js 16 (App Router, Turbopack)
+- React 19
+- TypeScript
+- Tailwind CSS v4 — tokens in `globals.css`, no `tailwind.config.js`
+- ESLint via `eslint-config-next`
+
+No runtime dependencies beyond `next`, `react`, and `react-dom`.
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The dev server runs on [http://localhost:3001](http://localhost:3001) — port
+3000 belongs to `company-profile` in this workspace.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command         | Purpose                      |
+| --------------- | ---------------------------- |
+| `npm run dev`   | Dev server with Fast Refresh |
+| `npm run build` | Production build             |
+| `npm start`     | Serve the production build   |
+| `npm run lint`  | ESLint                       |
 
-## Learn More
+## Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+  app/
+    (home)/_components/   The nine landing-page sections
+    (home)/page.tsx       /
+    globals.css           Design tokens, keyframes, base styles
+    layout.tsx            Fonts, metadata, skip link, chrome
+    error.tsx             Error boundary
+    not-found.tsx         404
+    robots.ts             Generated robots.txt
+    sitemap.ts            Generated sitemap.xml
+  components/
+    ui/                   Button, Marks, Reveal
+    layout/               SiteHeader, SiteFooter
+    sections/             Sections shared by 2+ routes (empty today)
+  lib/
+    content/              Site copy — one file per page
+    site-url.ts           Absolute base URL resolution
+docs/                     Full documentation
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Copy lives in `src/lib/content/`, not in components. Styling uses semantic
+Tailwind tokens, never raw values.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Documentation
 
-## Deploy on Vercel
+[**docs/README.md**](./docs/README.md) is the index — architecture, design
+system, animations, content guide, deployment, and security.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Design tokens are derived from [`DESIGN.md`](./DESIGN.md) at the project root.
+This project follows the workspace-wide
+[Next.js architecture standard](../docs/nextjs-architecture-standard.md).
